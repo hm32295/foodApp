@@ -1,0 +1,22 @@
+form .form-control.border-0.border{
+    border-left: 1px solid #ccc !important;
+    
+}
+.auth-container form button{
+    background: #4AA35A;
+    text-transform: capitalize;
+}
+.auth-container .title span{
+    font-size: 1rem;
+    
+}
+.auth-container a{
+    font-size: 1rem;
+}
+.auth-container span{
+    background-color: transparent;
+}
+.auth-container .showPass{
+    cursor: pointer;
+    
+}

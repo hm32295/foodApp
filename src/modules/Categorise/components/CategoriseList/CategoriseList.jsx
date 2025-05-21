@@ -44,7 +44,7 @@ export default function CategoriseList() {
         <AddCategorise setUpdateData={setUpdateData} updateData={updateData} link={addCategorise} nameSpan={"Add New "} />
       </div>
 
-      <div className="sub-categoriseList-table w-100">
+      <div className="sub-categoriseList-table mb-5 w-100">
         <table className='w-100 rounded-2'>
           <thead >
               <tr>

@@ -9,7 +9,7 @@ import Regestor from './modules/Authentiction/components/Regestor/Regestor';
 import ForgetPass from './modules/Authentiction/components/ForgetPass/ForgetPass';
 import ResetPass from './modules/Authentiction/components/ResetPass/ResetPass';
 import VerifyAccount from './modules/Authentiction/components/VerifyAccount/VerifyAccount';
-import NotFound from './modules/Shared/componetns/Header/NotFound/NotFound';
+import NotFound from './modules/Shared/componetns/NotFound/NotFound';
 import MasterLayout from './modules/Shared/componetns/MasterLayout/MasterLayout';
 import Dashboard from './modules/Dashboard/components/Dashboard/Dashboard';
 import RecipesData from './modules/Recipes/components/RecipesData/RecipesData';
@@ -17,9 +17,10 @@ import RecipesList from './modules/Recipes/components/RecipesList/RecipesList';
 import CategoriseData from './modules/Categorise/components/CategoriseData/CategoriseData';
 import CategoriseList from './modules/Categorise/components/CategoriseList/CategoriseList';
 import Users from './modules/Users/components/UsersList/Users';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import ProtectedRoute from './modules/Shared/componetns/ProtectedRoute/ProtectedRoute';
+
 
 function App() {
 
@@ -31,12 +32,7 @@ function App() {
     setLoginData(deCodedToken);
     
   }
-  useEffect(()=>{
-    if(localStorage.getItem('token')){
-      saveLoginData();
-      
-    }
-  },[])
+
 
   const routs = createBrowserRouter([
     {

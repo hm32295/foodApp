@@ -1,0 +1,33 @@
+
+.sidebar-con .ps-sidebar-container.css-dip3t8{
+    background-color: #1F263E ;
+    height: 100vh;
+    border-top-right-radius:2rem;
+
+}
+.sidebar-con aside{
+    border: none;
+}
+.sidebar-con .ps-menu-button{
+    color: #FAFAFA !important;
+}
+.sidebar-con .sidebar-logo .ps-menu-button,
+.sidebar-con .sidebar-logo-small .ps-menu-button{
+    padding-left: 0 !important;
+    margin-bottom: 1.5rem !important;
+    margin-top: 4rem;
+}
+
+.sidebar-con .ps-menu-button:hover{
+    background-color: #00924D1A !important;
+    border-left: #009247 4px solid;
+}
+.sidebar-con .sidebar-logo .ps-menu-button:hover,
+.sidebar-con .sidebar-logo-small .ps-menu-button:hover{
+    background-color: transparent !important;
+    border: none !important;
+}
+.sidebar-con  .sidebar-logout{
+    margin-top: 1.5rem;
+  
+}

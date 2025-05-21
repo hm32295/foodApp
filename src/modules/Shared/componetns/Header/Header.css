@@ -1,0 +1,35 @@
+.img-header img{
+    width: 100%;
+}
+.container-fluid.header{
+    background-color: #009247;
+    border-radius: 15px;
+    
+}
+.container-fluid.header h3{
+    color: #FFFFFF;
+    font-family: "Roboto" ,sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+.container-fluid.header p{
+    color: #fff;
+    font-family: "Roboto" ,sans-serif;
+    font-weight: 400;
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 4%;
+}
+.container-fluid.header h3 span{
+
+    font-family: "Roboto" ,sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 100%;
+    color: #DFE0E0;
+    letter-spacing: 0%;
+
+}

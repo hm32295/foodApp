@@ -3,11 +3,11 @@ import logo from "../../../../assets/image/logo1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import {  useState } from "react";
 import { toast ,ToastContainer} from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance, USERS_URLS } from "../../../../services/urls";
 
 export default function ResetPass() {
   const navigate = useNavigate()
@@ -23,7 +23,7 @@ export default function ResetPass() {
     } 
     setLoder(true)
   
-        let response = axios.post("https://upskilling-egypt.com:3006/api/v1/Users/Reset" ,data).then(res=>{
+        let response = axiosInstance.post(USERS_URLS.RESET_PASSWORD ,data).then(res=>{
          
           toast.success(res.data.message);
           navigate("/login")

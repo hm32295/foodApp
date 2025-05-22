@@ -13,6 +13,7 @@ import axios from 'axios';
 import ViewCategorise from '../ViewCategorise/ViewCategorise';
 import { ToastContainer } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
+import { axiosInstance, CATEGORIIES_URLS } from '../../../../services/urls';
 
 let addCategorise= 'https://upskilling-egypt.com:3006/api/v1/Category/'
 export default function CategoriseList() {
@@ -23,10 +24,8 @@ export default function CategoriseList() {
   useEffect(()=>{setUpdateData(!updateData)},[])
   useEffect(()=>{
     setLoders(true)
-    axios("https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=5&pageNumber=1",
-      {headers:{
-        Authorization:  localStorage.getItem('token')
-       }}
+    axiosInstance(CATEGORIIES_URLS.GET_CATEGORY+"/?pageSize=5&pageNumber=1",
+     
     ).then((res)=>{
       setCategorise(res.data.data);
       setLoders(false)

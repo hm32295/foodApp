@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import { axiosInstance, CATEGORIIES_URLS } from '../../../../services/urls';
 
 export default function AddCategorise({nameSpan ,classNameToIcon, link ,id ,setUpdateData ,updateData,nameEle}) {
   const[loders , setLoders] = useState(false)
@@ -19,13 +20,8 @@ export default function AddCategorise({nameSpan ,classNameToIcon, link ,id ,setU
       setLoders(true)
     if(nameSpan === "edit"){
     
-      axios.put(link+id ,
+      axiosInstance.put(CATEGORIIES_URLS.UPDATE_CATEGORY(id) ,
         {name : name},
-        {headers:
-         {
-         Authorization:  localStorage.getItem('token')
-       }
-       }
         ).then((res)=>{
               handleClose();
               setLoders(false)
@@ -33,13 +29,9 @@ export default function AddCategorise({nameSpan ,classNameToIcon, link ,id ,setU
          })
 
     }else{
-      axios.post(link ,
+      axiosInstance.post(CATEGORIIES_URLS.CREATE_CATEGORY ,
         {name : name},
-        {headers:
-         {
-         Authorization:  localStorage.getItem('token')
-       }
-       }
+     
         ).then((res)=>{
               handleClose();
               setLoders(false)

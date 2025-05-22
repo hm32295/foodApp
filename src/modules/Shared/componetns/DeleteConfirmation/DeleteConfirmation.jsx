@@ -5,15 +5,12 @@ import imgNoData from "../../../../assets/image/no-data.png"
 import "./DeleteConfirmation.css"
 import {  faTrashCan, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
+
 import { toast } from 'react-toastify';
+import { axiosInstance, CATEGORIIES_URLS } from '../../../../services/urls';
 export default function DeleteConfirmation({id,setUpdateData ,updateData ,nameEle}) {
   let deleteElement =()=>{
-    axios.delete("https://upskilling-egypt.com:3006/api/v1/Category/" + id,{
-      headers:{
-        Authorization: localStorage.getItem('token')
-      }
-    })
+    axiosInstance.delete(CATEGORIIES_URLS.DELETE_CATEGORY(id))
     handleClose()
     toast.success("delete Success!");
     setUpdateData(!updateData)

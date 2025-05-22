@@ -3,11 +3,11 @@ import logo from "../../../../assets/image/logo1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { useState } from "react";
 import { toast ,ToastContainer} from "react-toastify"
 import { useNavigate } from "react-router-dom";
+import { axiosInstance, USERS_URLS } from "../../../../services/urls";
 export default function ForgetPass() {
   let {register, formState:{errors}, handleSubmit ,reset} = useForm();
   let naviget = useNavigate();
@@ -16,7 +16,7 @@ const onSubmit = (data)=>{
   // console.log(data);
   setLoder(true)
  
-    let response = axios.post("https://upskilling-egypt.com:3006/api/v1/Users/Reset/Request" ,data).then(()=>{
+    let response = axiosInstance.post(USERS_URLS.FORGET_PASSWORD ,data).then(()=>{
      
       naviget("/reset-pass")
         setLoder(false);

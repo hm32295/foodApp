@@ -5,10 +5,10 @@ import logo from "../../../../assets/image/logo1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { useState } from "react";
 import { toast ,ToastContainer} from "react-toastify";
+import { axiosInstance, USERS_URLS } from "../../../../services/urls";
 // import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -22,7 +22,7 @@ export default function Login({saveLoginData}) {
     
     
         setLoder(true)
-        let response = axios.post("https://upskilling-egypt.com:3006/api/v1/Users/Login" ,data).then(res=>{
+        let response = axiosInstance.post(USERS_URLS.LOGIN ,data).then(res=>{
           localStorage.setItem('token' , (res.data.token));
           saveLoginData();
           toast.success("Success!");

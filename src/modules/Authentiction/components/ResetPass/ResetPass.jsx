@@ -8,6 +8,7 @@ import {  useState } from "react";
 import { toast ,ToastContainer} from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance, USERS_URLS } from "../../../../services/urls";
+import { EMAIL_VALIDION } from "../../../../services/validation";
 
 export default function ResetPass() {
   const navigate = useNavigate()
@@ -70,14 +71,7 @@ export default function ResetPass() {
                 <span className="input-group-text border-0" id="basic-addon1">
                     <FontAwesomeIcon icon={faEnvelope} />
                 </span>
-                <input {...register("email",
-                {
-                  pattern: {
-                    value :/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim ,
-                    message :"email is not valied"
-                  },
-                  required:"email is required"
-                }
+                <input {...register("email",EMAIL_VALIDION
                 )} type="text" className="form-control border-0 border bg-transparent" placeholder="email" aria-label="Username" aria-describedby="basic-addon1" />
               </div>
               {errors.email&&<div className="text-danger mb-2">{errors.email.message}</div>}

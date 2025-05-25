@@ -1,0 +1,14 @@
+.RecipesList .sub-categoriseList-table button{
+    border: none;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    background: none;
+    gap: .4rem;
+}
+.RecipesList .sub-categoriseList-table img{
+    width: 50px;
+    border-radius: .2rem;
+}

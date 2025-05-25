@@ -2,7 +2,6 @@
 
 import { faPenToSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import {  useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -11,7 +10,7 @@ import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { axiosInstance, CATEGORIIES_URLS } from '../../../../services/urls';
 
-export default function AddCategorise({nameSpan ,classNameToIcon, link ,id ,setUpdateData ,updateData,nameEle}) {
+export default function AddCategorise({nameSpan ,classNameToIcon ,id ,setUpdateData ,updateData,nameEle}) {
   const[loders , setLoders] = useState(false)
   
   const valueInput= useRef()
@@ -82,7 +81,6 @@ export default function AddCategorise({nameSpan ,classNameToIcon, link ,id ,setU
                       placeholder="Name Categorise"
                       autoFocus
                       ref={valueInput}
-                      // value={nameEle}
                     />
                   </Form.Group>
                   

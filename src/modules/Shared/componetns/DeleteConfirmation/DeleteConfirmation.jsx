@@ -7,12 +7,17 @@ import {  faTrashCan, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { toast } from 'react-toastify';
-import { axiosInstance, CATEGORIIES_URLS } from '../../../../services/urls';
-export default function DeleteConfirmation({id,setUpdateData ,updateData ,nameEle}) {
+import { axiosInstance, CATEGORIIES_URLS, RECIPES_URLS } from '../../../../services/urls';
+export default function DeleteConfirmation({id,type,setUpdateData ,updateData ,nameEle}) {
   let deleteElement =()=>{
-    axiosInstance.delete(CATEGORIIES_URLS.DELETE_CATEGORY(id))
-    handleClose()
+    if(type === "recipes"){
+      axiosInstance.delete(RECIPES_URLS.DELETE_RECIPES(id))
+    }else{
+
+      axiosInstance.delete(CATEGORIIES_URLS.DELETE_CATEGORY(id))
+    }
     toast.success("delete Success!");
+    handleClose()
     setUpdateData(!updateData)
   }
   const [show, setShow] = useState(false);

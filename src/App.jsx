@@ -20,6 +20,7 @@ import Users from './modules/Users/components/UsersList/Users';
 import {  useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import ProtectedRoute from './modules/Shared/componetns/ProtectedRoute/ProtectedRoute';
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -80,9 +81,12 @@ function App() {
     }
   ])
   return (
-    <RouterProvider router={routs}>
-       
-    </RouterProvider>
+    <>
+        <RouterProvider router={routs}>
+          
+        </RouterProvider>
+        <ToastContainer /> 
+    </>
   )
 }
 

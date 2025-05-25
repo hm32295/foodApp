@@ -21,5 +21,13 @@ export const CATEGORIIES_URLS = {
     DELETE_CATEGORY:(id)=> `/Category/${id}`
 }
 export const RECIPES_URLS ={
-    GET_RECIPES : '/Recipe/'
+    GET_RECIPES : '/Recipe/',
+    CREATE_RECIPES : '/Recipe/',
+    DELETE_RECIPES:(id)=> '/Recipe/'+id,
+}
+
+// ================ tag ===============
+
+export const TAG_URLS = {
+    GET_TAG : '/tag/',
 }

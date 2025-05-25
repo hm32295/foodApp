@@ -1,7 +1,7 @@
 import img from "../../../../assets/image/header receList.png"
 import Header from '../../../Shared/componetns/Header/Header'
 import NoData from '../../../Shared/componetns/NoData/NoData';
-import { faEllipsis, faEye, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsis, faEye, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';;
 import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -9,7 +9,11 @@ import { ClipLoader } from 'react-spinners';
 import { axiosInstance, beasImageURL, RECIPES_URLS } from '../../../../services/urls';
 import "./recipesList.css"
 import { useNavigate } from "react-router-dom";
+import DeleteConfirmation from "../../../Shared/componetns/DeleteConfirmation/DeleteConfirmation";
 export default function RecipesList() {
+  // const [showModelDelete,setShowModelDelete]= useState(true)
+
+
   const navigate = useNavigate("")
   const[recipesList ,setRecipesList] = useState([]);
   const[updateData , setUpdateData] = useState(true);
@@ -17,6 +21,7 @@ export default function RecipesList() {
 
   useEffect(()=>{setUpdateData(!updateData)},[])
   useEffect(()=>{
+    
     setLoders(true)
     axiosInstance(RECIPES_URLS.GET_RECIPES+"/?pageSize=5&pageNumber=1",
      
@@ -25,6 +30,9 @@ export default function RecipesList() {
       setLoders(false)
     })
   },[updateData])
+
+
+
   return (
     <div className='categoriseList RecipesList'>
       <Header description={'You can now add your items that any user can order it from the Application and you can edit'}  title={'Recipes Items'} img={img}/>
@@ -53,50 +61,49 @@ export default function RecipesList() {
          
           <tbody>
 
-          {
-              recipesList.map((ele)=>{
-                return(
+          { !loders&&(
 
-                    <tr key={ele.id || 2}>
-                      <td>{ele.name}</td>
-                      <td>
-                        <img src={`${beasImageURL}${ele.imagePath}`} alt="img recipes" />
-                      </td>
-                      <td>{ele.price}</td>
-                      <td>{ele.description}</td>
-                      <td>{ele.tag.name}</td>
-                      <td>{ele.category[0].name}</td>
-                      <td> 
-                        <FontAwesomeIcon className='listIcon' icon={faEllipsis} />
-        
-                          <div className="list">
-                            <div >
-                              <button>
-                                <FontAwesomeIcon className='subIcon' icon={faEye} />
-                                <span>View</span>
-                              </button>
-                              
-                            </div>
-                            <div>
-                              <button>
-                                <FontAwesomeIcon className='subIcon' icon={faPenToSquare} />
-                                <span>edit</span>
-                              </button>
-                            </div>
-                            <div>
-                              <button>
-                                 <FontAwesomeIcon className='subIcon' icon={faTrashCan} />
-                                 <span>delete</span>
-                              </button>
-                            </div>
+            recipesList.map((ele)=>{
+              return(
+  
+                  <tr key={ele.id || 2}>
+                    <td>{ele.name}</td>
+                    <td>
+                      <img src={`${beasImageURL}${ele.imagePath}`} alt="img recipes" />
+                    </td>
+                    <td>{ele.price}</td>
+                    <td>{ele.description}</td>
+                    <td>{ele.tag.name}</td>
+                    <td>{ele.category[0]?.name}</td>
+                    <td> 
+                      <FontAwesomeIcon className='listIcon' icon={faEllipsis} />
+      
+                        <div className="list">
+                          <div >
+                            <button>
+                              <FontAwesomeIcon className='subIcon' icon={faEye} />
+                              <span>View</span>
+                            </button>
+                            
                           </div>
-                      
-                      </td>
-                    </tr>
-                )
+                          <div>
+                            <button>
+                              <FontAwesomeIcon className='subIcon' icon={faPenToSquare} />
+                              <span>edit</span>
+                            </button>
+                          </div>
+                          <div>
+                              <DeleteConfirmation id={ele.id} type='recipes' 
+                              nameEle={ele.name} setUpdateData={setUpdateData} updateData={updateData}/>
+                            
+                          </div>
+                        </div>
+                    
+                    </td>
+                  </tr>
+              )
               })
-          
-            
+            ) 
           }
       </tbody>
         
@@ -104,7 +111,6 @@ export default function RecipesList() {
         {loders &&(
 
             <div className='mt-5 d-flex justify-content-center w-100'>
-
                 <ClipLoader  size={50} color='#000'/>
             </div>
         )}

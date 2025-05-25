@@ -69,8 +69,9 @@ export default function Login({saveLoginData}) {
                     <span className="input-group-text border-0" id="basic-addon1">
                         <FontAwesomeIcon icon={faEnvelope} />
                     </span>
-                    <input {...register("email", EMAIL_VALIDION
-                    )} type="text" className="form-control border-0 border bg-transparent" placeholder="email" aria-label="Username" aria-describedby="basic-addon1" />
+                    <input {...register("email", EMAIL_VALIDION )} 
+                    type="text" className="form-control border-0 border bg-transparent" 
+                    placeholder="email" aria-label="Username" aria-describedby="basic-addon1" />
                   </div>
                   {errors.email&&<div className="text-danger mb-2">{errors.email.message}</div>}
 
@@ -84,7 +85,9 @@ export default function Login({saveLoginData}) {
                       {
                         required: "password is required"
                       }
-                      )} type={showPass ?"password": "text"} className="form-control border-0 border bg-transparent" placeholder="password" aria-label="Username" aria-describedby="basic-addon1" />
+                      )} type={showPass ?"password": "text"} 
+                      className="form-control border-0 border bg-transparent" placeholder="password" 
+                      aria-label="Username" aria-describedby="basic-addon1" />
 
                         <span className="showPass input-group-text border-0 pointer" id="basic-addon1">
                           {showPass?( <FontAwesomeIcon icon={faEye} 
@@ -111,7 +114,7 @@ export default function Login({saveLoginData}) {
             </div>
           </div>
         </div>
-        <ToastContainer /> 
+        
     </div>
   )
 }

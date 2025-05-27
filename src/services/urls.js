@@ -24,8 +24,8 @@ export const RECIPES_URLS ={
     GET_RECIPES : '/Recipe/',
     CREATE_RECIPES : '/Recipe/',
     DELETE_RECIPES:(id)=> '/Recipe/'+id,
+    UPDATE_RECIPES:(id)=> '/Recipe/'+id,
 }
-
 // ================ tag ===============
 
 export const TAG_URLS = {

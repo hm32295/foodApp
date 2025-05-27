@@ -11,14 +11,12 @@ import "./recipesList.css"
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmation from "../../../Shared/componetns/DeleteConfirmation/DeleteConfirmation";
 export default function RecipesList() {
-  // const [showModelDelete,setShowModelDelete]= useState(true)
-
-
-  const navigate = useNavigate("")
+  
+  const navigate = useNavigate()
   const[recipesList ,setRecipesList] = useState([]);
   const[updateData , setUpdateData] = useState(true);
   const [loders ,setLoders] = useState(false)
-
+ 
   useEffect(()=>{setUpdateData(!updateData)},[])
   useEffect(()=>{
     
@@ -87,7 +85,9 @@ export default function RecipesList() {
                             
                           </div>
                           <div>
-                            <button>
+                            <button onClick={ ()=>{
+                                  navigate("../Recipes-data" , {state : ele})
+                              }}>
                               <FontAwesomeIcon className='subIcon' icon={faPenToSquare} />
                               <span>edit</span>
                             </button>

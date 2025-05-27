@@ -1,6 +1,6 @@
 import { faRightLong } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import "./recipesData.css"
 import { Form } from "react-bootstrap"
 import { useForm } from "react-hook-form"
@@ -13,27 +13,57 @@ export default function RecipesData() {
   const [loder , setLoder] = useState(false)
   const[tag, setTag] = useState([]);
   const[category, setCategory] = useState([]);
+  const navigate = useNavigate();
   
-let saveData = async (data)=>{
-  let recipcesData =  handelDataToForm(data);
-  setLoder(true)
-  try{
-    let res = await axiosInstance.post(RECIPES_URLS.CREATE_RECIPES,recipcesData);
-    toast.success(res.data.message);
-    navigate("../Recipes-list")
-    reset()
-    
-  }
-  catch(error){console.log(error)}
-  setLoder(false)
-}
-
-  useEffect(()=>{
-    getTag(setTag)
-    getCategory(setCategory)
-  },[])
   const {register , handleSubmit,formState:{errors} ,reset} = useForm()
-  const navigate = useNavigate()
+
+
+  const location = useLocation();
+  const recipeItem = location.state
+  useEffect(() => {
+    if (recipeItem) {
+      reset({
+        name: recipeItem.name,
+        price: recipeItem.price,
+        description: recipeItem.description,
+        tagId: recipeItem.tag?.id,    
+        categoriesIds: recipeItem.category?.[0]?.id,
+      });
+    }
+    
+    
+  }, [recipeItem,tag, category, reset]);
+
+  let saveData = async (data)=>{
+    let recipcesData =  handelDataToForm(data);
+    setLoder(true)
+    try{
+      let res;
+      if(recipeItem){
+        res = await axiosInstance.put(RECIPES_URLS.UPDATE_RECIPES(recipeItem.id),recipcesData);
+        toast.success('updated successfly');
+      }else{
+
+        res = await axiosInstance.post(RECIPES_URLS.CREATE_RECIPES,recipcesData);
+        toast.success(res.data.message);
+      }
+        navigate("../Recipes-list")
+     
+      reset()
+      
+    }
+    catch(error){console.log(error)}
+    setLoder(false)
+}
+  
+
+
+ 
+  useEffect(()=>{
+    getTag(setTag,setLoder)
+    getCategory(setCategory,setLoder);
+  },[])
+  
   return (
     <div className="RecipesData m-3">
         <div className="top d-flex p-4 align-items-center justify-content-between">
@@ -61,6 +91,8 @@ let saveData = async (data)=>{
                 />
                 {errors.name&&<div className="text-danger mb-2">{errors.name.message}</div>}
               </Form.Group>
+
+
               <Form.Group className="mb-3" controlId="formGroupEmail">
                 <Form.Select aria-label="Default select example" {...register("tagId",{required: "faid is required"} )}>
                   {tag.length&&(
@@ -74,10 +106,15 @@ let saveData = async (data)=>{
                 </Form.Select>
                 {errors.tagId&&<div className="text-danger mb-2">{errors.tagId.message}</div>}
               </Form.Group>
+
+
               <Form.Group className="mb-3" controlId="formGroupEmail">
                 <Form.Control type="text" placeholder="price" {...register("price",{required: "faid is required"} )}/>
                 {errors.price&&<div className="text-danger mb-2">{errors.price.message}</div>}
               </Form.Group>
+
+
+
               <Form.Group className="mb-3" controlId="formGroupEmail">
                 <Form.Select aria-label="Default select example" {...register("categoriesIds",{required: "faid is required"} )}>
                   
@@ -91,10 +128,14 @@ let saveData = async (data)=>{
                 </Form.Select>
                 {errors.categoriesIds&&<div className="text-danger mb-2">{errors.categoriesIds.message}</div>}
               </Form.Group>
+
+
+
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" >
                 <Form.Control as="textarea" rows={3} {...register("description",{required: "faid is required"} )}/>
                 {errors.description&&<div className="text-danger mb-2">{errors.description.message}</div>}
               </Form.Group>
+
 
               <Form.Group className="mb-3" controlId="formGroupEmail" >
                 <Form.Control type="file" placeholder="img" {...register("recipeImage" )} />
@@ -111,7 +152,8 @@ let saveData = async (data)=>{
 }
 
 
-let getTag = async (setTag)=>{
+let getTag = async (setTag,setLoder)=>{
+  setLoder(true)
   try{
     let res = await axiosInstance(TAG_URLS.GET_TAG);
 
@@ -119,16 +161,19 @@ let getTag = async (setTag)=>{
   }catch(errors){
     console.log(errors)
   }
+  setLoder(false)
 }
 
 
-let getCategory = async (setCategory)=>{
+let getCategory = async (setCategory,setLoder)=>{
+  setLoder(true)
   try{
     let res = await axiosInstance(CATEGORIIES_URLS.GET_CATEGORY);
     setCategory(res.data.data)
   }catch(errors){
     console.log(errors)
   }
+  setLoder(false)
 }
 
 let handelDataToForm = (data) =>{

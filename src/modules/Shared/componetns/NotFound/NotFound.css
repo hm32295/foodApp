@@ -5,6 +5,9 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+.notFound .left >img{
+    max-width: 100%;
+}
 .notFound .text h3{
     font-family: "Inter" ,sans-serif;
     font-weight: 700;
@@ -42,12 +45,13 @@
     border-radius: 50%;
 }
 .notFound .text p{
-    font-family: "Inter" ,sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: 4%;
+    letter-spacing: 4;
     color: #1F263E;
+    margin-top: 1.5rem;
 }
 
 
@@ -66,10 +70,10 @@
 }
 @media (max-width : 991px) {
     .notFound{
-        /* flex-direction: column; */
+        flex-direction: column;
     }
-    .notFound .left{
-        /* flex-direction: row;
-         */
+    .notFound .left>img {
+       height: 50px;   
     }
+  
 }

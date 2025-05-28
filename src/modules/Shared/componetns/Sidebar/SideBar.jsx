@@ -43,7 +43,7 @@ export default function SideBar() {
               <MenuItem icon={<img src={iconRecipes} alt="iconRecipes" />} component={<Link to="/dashboard/Recipes-list" />}> Recipes </MenuItem>
               <MenuItem icon={<img src={iconCategories} alt="iconCategories" />} component={<Link to="/dashboard/Categorise-list" />}> Categories </MenuItem>
               <MenuItem icon={<img src={iconChange} alt="iconChange" />} component={<Link to="/dashboard/" />}> Change Password </MenuItem>
-              <MenuItem className='sidebar-logout' icon={<img src={iconlog} alt="iconlog" />} component={<Link to="/dashboard/Categorise-list" />}> log out </MenuItem>
+              <MenuItem className='sidebar-logout' onClick={()=>{localStorage.removeItem("token")}} icon={<img src={iconlog} alt="iconlog" />} component={<Link to="/login" />}> log out </MenuItem>
              
             </Menu>
           </Sidebar>

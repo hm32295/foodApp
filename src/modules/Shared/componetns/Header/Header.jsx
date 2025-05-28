@@ -8,8 +8,8 @@ export default function Header({title , description , img}) {
           <h3> Welcome <span>{title}</span></h3>
           <p>{description}</p>
         </div>
-        <div className="img-header col-md-4">
-            <img src={img} alt="img Header" />
+        <div className="img-header col-md-4 d-flex justify-content-center">
+            <img src={img} alt="img Header" className="w-auto"/>
         </div>
       </div>
     </div>

@@ -33,3 +33,6 @@
     letter-spacing: 0%;
 
 }
+.container-fluid.header .img-header img{
+    height: 200px;
+}

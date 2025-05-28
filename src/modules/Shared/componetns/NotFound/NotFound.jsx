@@ -13,9 +13,9 @@ export default function NotFound() {
 
   return (
     <div className="notFound d-flex align-items-center justify-content-between">
-      <div className="left h-100 d-flex flex-column justify-content-start gap-5 p-5 ">
+      <div className="left h-100 d-flex flex-column justify-content-start gap-5 p-1 ">
         <img src={logoNotFound2} alt="" />
-        <div className="text p-5">
+        <div className="text p-1">
           <h3 className="text-capitalize">oops.</h3>
           <h4>page not found
 

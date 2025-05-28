@@ -32,7 +32,7 @@ const onSubmit = (data)=>{
   return (
      <div className="auth-container" >
            <div className="container-fluid bg-overlay">
-             <div className="row vh-100 justify-content-center align-items-center">
+             <div className="row vh-100 justify-content-center align-items-center p-2">
                <div className="col-md-5 bg-white rounded-2 py-5 px-3">
    
    

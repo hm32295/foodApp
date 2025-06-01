@@ -33,7 +33,8 @@ export default function RecipesList() {
 
   return (
     <div className='categoriseList RecipesList'>
-      <Header description={'You can now add your items that any user can order it from the Application and you can edit'}  title={'Recipes Items'} img={img}/>
+      <Header description={'You can now add your items that any user can order it from the Application and you can edit'}  
+      title={'Welcome Recipes Items'} img={img}/>
       <div className="sub-categoriseList-title d-flex justify-content-between p-3 align-items-center">
         <div>
             <h4>Recipe Table Details</h4>

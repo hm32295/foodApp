@@ -1,7 +1,6 @@
 
 import Header from '../../../Shared/componetns/Header/Header';
 import imgHeader from '../../../../assets/image/header dashboard.png';
-// import iconButton from "../../../../assets/icons/arrowRight.svg";
 import "./categoriseList.css"
 import NoData from '../../../Shared/componetns/NoData/NoData';
 import DeleteConfirmation from '../../../Shared/componetns/DeleteConfirmation/DeleteConfirmation';
@@ -9,7 +8,6 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AddCategorise from '../AddCategorise/AddCategorise';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import ViewCategorise from '../ViewCategorise/ViewCategorise';
 import { ToastContainer } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
@@ -33,7 +31,8 @@ export default function CategoriseList() {
   },[updateData])
   return (
     <div className='categoriseList'>
-      <Header description={'You can now add your items that any user can order it from the Application and you can edit'}  title={'Categories item'} img={imgHeader}/>
+      <Header description={'You can now add your items that any user can order it from the Application and you can edit'}  
+      title={'Welcome Categories item'} img={imgHeader}/>
       <div className="sub-categoriseList-title d-flex justify-content-between p-3 align-items-center">
         <div>
             <h4>Categories Table Details</h4>
@@ -78,7 +77,7 @@ export default function CategoriseList() {
                               <AddCategorise setUpdateData={setUpdateData} updateData={updateData} link={addCategorise} id={ele.id} nameEle={ele.name} nameSpan={"edit"} classNameToIcon={'subIcon'}/>
                             </div>
                             <div>
-                              <DeleteConfirmation nameEle={ele.name} setUpdateData={setUpdateData} updateData={updateData} id={ele.id}/>
+                              <DeleteConfirmation type="Categories" nameEle={ele.name} setUpdateData={setUpdateData} updateData={updateData} id={ele.id}/>
                             </div>
                           </div>
                       

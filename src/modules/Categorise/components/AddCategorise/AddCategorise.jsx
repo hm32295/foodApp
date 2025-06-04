@@ -10,7 +10,7 @@ import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { axiosInstance, CATEGORIIES_URLS } from '../../../../services/urls';
 
-export default function AddCategorise({nameSpan ,classNameToIcon ,id ,setUpdateData ,updateData,nameEle}) {
+export default function AddCategorise({nameSpan ,classNameToIcon ,id ,getAllCategorise,nameEle}) {
   const[loders , setLoders] = useState(false)
   
   const valueInput= useRef()
@@ -38,7 +38,7 @@ export default function AddCategorise({nameSpan ,classNameToIcon ,id ,setUpdateD
          })
     }
     
-    setUpdateData(!updateData)
+    getAllCategorise(3 ,1)
   }
   const [show, setShow] = useState(false);
 

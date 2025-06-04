@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { toast } from 'react-toastify';
 import { axiosInstance, CATEGORIIES_URLS, RECIPES_URLS, USERS_URLS } from '../../../../services/urls';
-export default function DeleteConfirmation({id,type,setUpdateData ,updateData ,nameEle}) {
+export default function DeleteConfirmation({id,type,getAllCategorise ,nameEle}) {
   
   let deleteElement =()=>{
     if(type === "recipes"){
@@ -23,7 +23,7 @@ export default function DeleteConfirmation({id,type,setUpdateData ,updateData ,n
     // }
     toast.success("delete Success!");
     handleClose()
-    setUpdateData(!updateData)
+    getAllCategorise(3 ,1)
   }
   const [show, setShow] = useState(false);
 

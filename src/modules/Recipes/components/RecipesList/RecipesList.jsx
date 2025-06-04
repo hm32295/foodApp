@@ -10,24 +10,31 @@ import { axiosInstance, beasImageURL, RECIPES_URLS } from '../../../../services/
 import "./recipesList.css"
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmation from "../../../Shared/componetns/DeleteConfirmation/DeleteConfirmation";
+import PaginationPage from "../../../Shared/componetns/Pagination/PaginationPage";
 export default function RecipesList() {
   
   const navigate = useNavigate()
   const[recipesList ,setRecipesList] = useState([]);
-  const[updateData , setUpdateData] = useState(true);
+  const [pageNumber, setPageNumber] = useState([])
   const [loders ,setLoders] = useState(false)
  
-  useEffect(()=>{setUpdateData(!updateData)},[])
+  const getAllRecipes = async(pageSize , pageNumber)=>{
+    try{
+        let res = await  setLoders(true)
+        axiosInstance(RECIPES_URLS.GET_RECIPES,{params:{pageSize , pageNumber}}).then((res)=>{
+          setRecipesList(res.data.data);
+          setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))
+          setLoders(false)
+        })
+    }catch(error){
+      console.log(error);
+      
+    }
+  }
   useEffect(()=>{
-    
-    setLoders(true)
-    axiosInstance(RECIPES_URLS.GET_RECIPES+"/?pageSize=5&pageNumber=1",
-     
-    ).then((res)=>{
-      setRecipesList(res.data.data);
-      setLoders(false)
-    })
-  },[updateData])
+    getAllRecipes(3,1)
+   
+  },[])
 
 
 
@@ -95,7 +102,7 @@ export default function RecipesList() {
                           </div>
                           <div>
                               <DeleteConfirmation id={ele.id} type='recipes' 
-                              nameEle={ele.name} setUpdateData={setUpdateData} updateData={updateData}/>
+                              nameEle={ele.name} getAllCategorise={getAllRecipes}/>
                             
                           </div>
                         </div>
@@ -109,6 +116,7 @@ export default function RecipesList() {
       </tbody>
         
         </table>
+        <PaginationPage pages={pageNumber} funData ={getAllRecipes}/>
         {loders &&(
 
             <div className='mt-5 d-flex justify-content-center w-100'>

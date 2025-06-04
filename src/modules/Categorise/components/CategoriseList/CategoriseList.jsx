@@ -17,19 +17,24 @@ import PaginationPage from '../../../Shared/componetns/Pagination/PaginationPage
 let addCategorise= 'https://upskilling-egypt.com:3006/api/v1/Category/'
 export default function CategoriseList() {
   const[categories ,setCategorise] = useState([]);
-  const[updateData , setUpdateData] = useState(true);
-  const [loders ,setLoders] = useState(false)
+  const [pageNumber, setPageNumber] = useState([])
+  const [loders ,setLoders] = useState(false);
+  const getAllCategorise = async(pageSize , pageNumber)=>{
+    try{
+      let response = await setLoders(true)
+      axiosInstance(CATEGORIIES_URLS.GET_CATEGORY, {params:{pageSize , pageNumber}} ).then((res)=>{
+        setCategorise(res.data.data);
+        setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))
+        setLoders(false)
+      })
+    }catch(error ){
+      console.log(error)
+    }
+  }
 
-  useEffect(()=>{setUpdateData(!updateData)},[])
   useEffect(()=>{
-    setLoders(true)
-    axiosInstance(CATEGORIIES_URLS.GET_CATEGORY+"/?pageSize=5&pageNumber=1",
-     
-    ).then((res)=>{
-      setCategorise(res.data.data);
-      setLoders(false)
-    })
-  },[updateData])
+    getAllCategorise(3 ,1)
+  },[])
   return (
     <div className='categoriseList'>
       <Header description={'You can now add your items that any user can order it from the Application and you can edit'}  
@@ -40,7 +45,7 @@ export default function CategoriseList() {
             <p>You can check all details</p>
         </div>
         
-        <AddCategorise setUpdateData={setUpdateData} updateData={updateData} link={addCategorise} nameSpan={"Add New "} />
+        <AddCategorise getAllCategorise={getAllCategorise} link={addCategorise} nameSpan={"Add New "} />
       </div>
 
       <div className="sub-categoriseList-table mb-5 w-100">
@@ -76,10 +81,10 @@ export default function CategoriseList() {
                               
                             </div>
                             <div>
-                              <AddCategorise setUpdateData={setUpdateData} updateData={updateData} link={addCategorise} id={ele.id} nameEle={ele.name} nameSpan={"edit"} classNameToIcon={'subIcon'}/>
+                              <AddCategorise getAllCategorise={getAllCategorise} link={addCategorise} id={ele.id} nameEle={ele.name} nameSpan={"edit"} classNameToIcon={'subIcon'}/>
                             </div>
                             <div>
-                              <DeleteConfirmation type="Categories" nameEle={ele.name} setUpdateData={setUpdateData} updateData={updateData} id={ele.id}/>
+                              <DeleteConfirmation type="Categories" nameEle={ele.name} getAllCategorise={getAllCategorise} id={ele.id}/>
                             </div>
                           </div>
                       
@@ -93,7 +98,7 @@ export default function CategoriseList() {
       </tbody>
         
         </table>
-        <PaginationPage pages={""}/>
+        <PaginationPage pages={pageNumber} funData ={getAllCategorise}/>
         {loders &&(
 
             <div className='mt-5 d-flex justify-content-center w-100'>

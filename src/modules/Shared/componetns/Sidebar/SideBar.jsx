@@ -12,6 +12,9 @@ import iconCategories from "../../../../assets/icons/iconCategorise.svg"
 import iconlog from "../../../../assets/icons/iconLogout.svg"
 import iconChange from "../../../../assets/icons/iconChangePassword.svg"
 import { useState } from 'react';
+
+
+
 export default function SideBar() {
   const [collapse, setCollapse] = useState(true)
   let handelCollapsed = (collapse)=>{

@@ -17,8 +17,6 @@ import RecipesList from './modules/Recipes/components/RecipesList/RecipesList';
 import CategoriseData from './modules/Categorise/components/CategoriseData/CategoriseData';
 import CategoriseList from './modules/Categorise/components/CategoriseList/CategoriseList';
 import Users from './modules/Users/components/UsersList/Users';
-import { useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
 import ProtectedRoute from './modules/Shared/componetns/ProtectedRoute/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,18 +24,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   
-
-
-  const [loginData , setLoginData] = useState(null)
-  let saveLoginData = () =>{
-    let enCodedToken = localStorage.getItem('token');
-    let deCodedToken = jwtDecode(enCodedToken);
-    
-    setLoginData(deCodedToken);
-    
-  }
-
-
   const routs = createBrowserRouter([
     {
       path: "",
@@ -45,11 +31,11 @@ function App() {
       children:[
         {
           path :"",
-          element : <Login saveLoginData={saveLoginData} />
+          element : <Login />
         },
         {
           path :"login",
-          element : <Login saveLoginData={saveLoginData} />
+          element : <Login  />
         },
         {
           path :"register",
@@ -72,7 +58,7 @@ function App() {
     },
     {
       path : "/dashboard",
-      element: <ProtectedRoute loginData={loginData}> <MasterLayout loginData={loginData}/> </ProtectedRoute> , 
+      element: <ProtectedRoute > <MasterLayout /> </ProtectedRoute> , 
       children :[
         { index : true, element : <Dashboard /> },
         { path : "Recipes-data", element : <RecipesData /> },

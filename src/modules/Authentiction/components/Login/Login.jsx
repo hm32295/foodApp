@@ -6,15 +6,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast ,ToastContainer} from "react-toastify";
 import { axiosInstance, USERS_URLS } from "../../../../services/urls";
 import { EMAIL_VALIDION } from "../../../../services/validation";
+import { AuthContext } from "../../../../context/AuthContext";
 // import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function Login({saveLoginData}) {
+export default function Login() {
   const navigate = useNavigate()
+
+
+  let{saveLoginData} = useContext(AuthContext)
+
   let {register, formState:{errors}, handleSubmit,reset} = useForm();
   const [loder ,setLoder] = useState(false);
   const [showPass , setShowPass] = useState(true);

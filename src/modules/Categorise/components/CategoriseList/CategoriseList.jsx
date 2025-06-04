@@ -12,6 +12,7 @@ import ViewCategorise from '../ViewCategorise/ViewCategorise';
 import { ToastContainer } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
 import { axiosInstance, CATEGORIIES_URLS } from '../../../../services/urls';
+import PaginationPage from '../../../Shared/componetns/Pagination/PaginationPage';
 
 let addCategorise= 'https://upskilling-egypt.com:3006/api/v1/Category/'
 export default function CategoriseList() {
@@ -43,6 +44,7 @@ export default function CategoriseList() {
       </div>
 
       <div className="sub-categoriseList-table mb-5 w-100">
+        <input type="text" placeholder='Search By Name ,,,' className='form-control mb-3' />
         <table className='w-100 rounded-2'>
           <thead >
               <tr>
@@ -91,6 +93,7 @@ export default function CategoriseList() {
       </tbody>
         
         </table>
+        <PaginationPage pages={""}/>
         {loders &&(
 
             <div className='mt-5 d-flex justify-content-center w-100'>

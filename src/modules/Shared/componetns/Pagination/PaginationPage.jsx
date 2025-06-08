@@ -6,7 +6,7 @@ export default function PaginationPage({pages,funData}) {
         <Pagination className='m-3 d-flex justify-content-center'>
           {pages.map(page=>{
             return(
-              <Pagination.Item onClick={()=>{funData(3,page)}} key={page} >{page} </Pagination.Item>
+              <Pagination.Item onClick={()=>{funData(3,page, "")}} key={page} >{page} </Pagination.Item>
 
             )
           })}

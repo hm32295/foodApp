@@ -16,16 +16,18 @@ import PaginationPage from '../../../Shared/componetns/Pagination/PaginationPage
 
 let addCategorise= 'https://upskilling-egypt.com:3006/api/v1/Category/'
 export default function CategoriseList() {
+  const[getName ,setgetName] = useState("");
   const[categories ,setCategorise] = useState([]);
   const [pageNumber, setPageNumber] = useState([])
   const [loders ,setLoders] = useState(false);
-  const getAllCategorise = async(pageSize , pageNumber)=>{
+  const getAllCategorise = async(pageSize , pageNumber,name)=>{
     try{
       let response = await setLoders(true)
-      axiosInstance(CATEGORIIES_URLS.GET_CATEGORY, {params:{pageSize , pageNumber}} ).then((res)=>{
+      axiosInstance(CATEGORIIES_URLS.GET_CATEGORY, {params:{pageSize , pageNumber,name}} ).then((res)=>{
         setCategorise(res.data.data);
         setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))
         setLoders(false)
+        
       })
     }catch(error ){
       console.log(error)
@@ -33,8 +35,11 @@ export default function CategoriseList() {
   }
 
   useEffect(()=>{
-    getAllCategorise(3 ,1)
+    getAllCategorise(3 ,1, "")
   },[])
+  useEffect(()=>{
+    getAllCategorise(3 ,1, getName)
+  },[getName])
   return (
     <div className='categoriseList'>
       <Header description={'You can now add your items that any user can order it from the Application and you can edit'}  
@@ -49,7 +54,7 @@ export default function CategoriseList() {
       </div>
 
       <div className="sub-categoriseList-table mb-5 w-100">
-        <input type="text" placeholder='Search By Name ,,,' className='form-control mb-3' />
+        <input type="text" placeholder='Search By Name ,,,' className='form-control mb-3' onChange={(e)=>{setgetName(e.target.value)}}/>
         <table className='w-100 rounded-2'>
           <thead >
               <tr>

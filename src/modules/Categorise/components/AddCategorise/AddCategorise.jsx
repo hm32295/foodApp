@@ -38,7 +38,7 @@ export default function AddCategorise({nameSpan ,classNameToIcon ,id ,getAllCate
          })
     }
     
-    getAllCategorise(3 ,1)
+    getAllCategorise(3 ,1 ,"")
   }
   const [show, setShow] = useState(false);
 

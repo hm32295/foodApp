@@ -32,7 +32,7 @@ export default function RecipesList() {
     }
   }
   useEffect(()=>{
-    getAllRecipes(3,1)
+    getAllRecipes(3,1 ,"")
    
   },[])
 

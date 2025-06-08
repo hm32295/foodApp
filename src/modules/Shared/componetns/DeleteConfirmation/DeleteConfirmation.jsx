@@ -23,7 +23,7 @@ export default function DeleteConfirmation({id,type,getAllCategorise ,nameEle}) 
     // }
     toast.success("delete Success!");
     handleClose()
-    getAllCategorise(3 ,1)
+    getAllCategorise(3 ,1 ,"")
   }
   const [show, setShow] = useState(false);
 

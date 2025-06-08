@@ -15,6 +15,7 @@ export default function RecipesList() {
   
   const navigate = useNavigate()
   const[recipesList ,setRecipesList] = useState([]);
+  const [res, setRes] = useState(1)
   const [pageNumber, setPageNumber] = useState([])
   const [loders ,setLoders] = useState(false)
  
@@ -23,6 +24,7 @@ export default function RecipesList() {
         let res = await  setLoders(true)
         axiosInstance(RECIPES_URLS.GET_RECIPES,{params:{pageSize , pageNumber}}).then((res)=>{
           setRecipesList(res.data.data);
+          setRes(res.data)
           setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))
           setLoders(false)
         })
@@ -52,78 +54,81 @@ export default function RecipesList() {
       </div>
 
       <div className="sub-categoriseList-table mb-5 w-100">
-        <table className='w-100 rounded-2'>
-          <thead >
-              <tr>
-                <th> Item Name</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>tag</th>
-                <th>Category</th>
-                <th>actions</th>
-              </tr>
-          </thead>
-         
-          <tbody>
-
-          { !loders&&(
-
-            recipesList.map((ele)=>{
-              return(
-  
-                  <tr key={ele.id || 2}>
-                    <td>{ele.name}</td>
-                    <td>
-                      <img src={`${beasImageURL}${ele.imagePath}`} alt="img recipes" />
-                    </td>
-                    <td>{ele.price}</td>
-                    <td>{ele.description}</td>
-                    <td>{ele.tag.name}</td>
-                    <td>{ele.category[0]?.name}</td>
-                    <td> 
-                      <FontAwesomeIcon className='listIcon' icon={faEllipsis} />
-      
-                        <div className="list">
-                          <div >
-                            <button>
-                              <FontAwesomeIcon className='subIcon' icon={faEye} />
-                              <span>View</span>
-                            </button>
-                            
-                          </div>
-                          <div>
-                            <button onClick={ ()=>{
-                                  navigate("../Recipes-data" , {state : ele})
-                              }}>
-                              <FontAwesomeIcon className='subIcon' icon={faPenToSquare} />
-                              <span>edit</span>
-                            </button>
-                          </div>
-                          <div>
-                              <DeleteConfirmation id={ele.id} type='recipes' 
-                              nameEle={ele.name} getAllCategorise={getAllRecipes}/>
-                            
-                          </div>
-                        </div>
-                    
-                    </td>
+        {!loders&&(
+          <>
+            <table className='w-100 rounded-2'>
+              <thead >
+                  <tr>
+                    <th> Item Name</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>tag</th>
+                    <th>Category</th>
+                    <th>actions</th>
                   </tr>
-              )
-              })
-            ) 
-          }
-      </tbody>
-        
-        </table>
-        <PaginationPage pages={pageNumber} funData ={getAllRecipes}/>
+              </thead>
+            
+              <tbody>
+
+              { !loders&&(
+
+                recipesList.map((ele)=>{
+                  return(
+      
+                      <tr key={ele.id || 2}>
+                        <td>{ele.name}</td>
+                        <td>
+                          <img src={`${beasImageURL}${ele.imagePath}`} alt="img recipes" />
+                        </td>
+                        <td>{ele.price}</td>
+                        <td>{ele.description}</td>
+                        <td>{ele.tag.name}</td>
+                        <td>{ele.category[0]?.name}</td>
+                        <td> 
+                          <FontAwesomeIcon className='listIcon' icon={faEllipsis} />
+          
+                            <div className="list">
+                              <div >
+                                <button>
+                                  <FontAwesomeIcon className='subIcon' icon={faEye} />
+                                  <span>View</span>
+                                </button>
+                                
+                              </div>
+                              <div>
+                                <button onClick={ ()=>{
+                                      navigate("../Recipes-data" , {state : ele})
+                                  }}>
+                                  <FontAwesomeIcon className='subIcon' icon={faPenToSquare} />
+                                  <span>edit</span>
+                                </button>
+                              </div>
+                              <div>
+                                  <DeleteConfirmation id={ele.id} type='recipes' 
+                                  nameEle={ele.name} getAllCategorise={getAllRecipes}/>
+                                
+                              </div>
+                            </div>
+                        
+                        </td>
+                      </tr>
+                  )
+                  })
+                ) 
+              }
+          </tbody>
+            
+            </table>
+            <PaginationPage pages={pageNumber} funData ={getAllRecipes} res={res}/>
+          </>
+        )}
         {loders &&(
 
             <div className='mt-5 d-flex justify-content-center w-100'>
                 <ClipLoader  size={50} color='#000'/>
             </div>
         )}
-        <ToastContainer /> 
        {!recipesList.length &&  (
         !loders && <NoData />
        )}

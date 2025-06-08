@@ -20,11 +20,14 @@ export default function CategoriseList() {
   const[categories ,setCategorise] = useState([]);
   const [pageNumber, setPageNumber] = useState([])
   const [loders ,setLoders] = useState(false);
+
+  const [res ,setRes] = useState(1)
   const getAllCategorise = async(pageSize , pageNumber,name)=>{
     try{
       let response = await setLoders(true)
       axiosInstance(CATEGORIIES_URLS.GET_CATEGORY, {params:{pageSize , pageNumber,name}} ).then((res)=>{
         setCategorise(res.data.data);
+        setRes(res.data)
         setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))
         setLoders(false)
         
@@ -55,63 +58,63 @@ export default function CategoriseList() {
 
       <div className="sub-categoriseList-table mb-5 w-100">
         <input type="text" placeholder='Search By Name ,,,' className='form-control mb-3' onChange={(e)=>{setgetName(e.target.value)}}/>
-        <table className='w-100 rounded-2'>
-          <thead >
-              <tr>
-                <th> name</th>
-                <th></th>
-                <th>modificationDate</th>
-                <th>creationDate</th>
-                <th>actions</th>
-              </tr>
-          </thead>
-         
-          <tbody>
-
-          {
-              categories.map((ele)=>{
-                return(
-                  
-                    <tr key={ele.id || 2}>
-                      <td>{ele.name}</td>
-                      <td> 350.99</td>
-                      <td>{ele.modificationDate}</td>
-                      <td>{ele.creationDate}</td>
-                      <td> 
-                        <FontAwesomeIcon className='listIcon' icon={faEllipsis} />
-        
-                          <div className="list">
-                            <div >
-                              <ViewCategorise id={ele.id} />
-                              
-                            </div>
-                            <div>
-                              <AddCategorise getAllCategorise={getAllCategorise} link={addCategorise} id={ele.id} nameEle={ele.name} nameSpan={"edit"} classNameToIcon={'subIcon'}/>
-                            </div>
-                            <div>
-                              <DeleteConfirmation type="Categories" nameEle={ele.name} getAllCategorise={getAllCategorise} id={ele.id}/>
-                            </div>
-                          </div>
-                      
-                      </td>
-                    </tr>
-                )
-              })
-          
+        { !loders&&(
+          <>
+            <table className='w-100 rounded-2'>
+              <thead >
+                  <tr>
+                    <th> name</th>
+                    <th></th>
+                    <th>modificationDate</th>
+                    <th>creationDate</th>
+                    <th>actions</th>
+                  </tr>
+              </thead>
             
-          }
-      </tbody>
-        
-        </table>
-        <PaginationPage pages={pageNumber} funData ={getAllCategorise}/>
+              <tbody>
+                  {
+                  categories.map((ele)=>{
+                    return(
+                      
+                        <tr key={ele.id || 2}>
+                          <td>{ele.name}</td>
+                          <td> 350.99</td>
+                          <td>{ele.modificationDate}</td>
+                          <td>{ele.creationDate}</td>
+                          <td> 
+                            <FontAwesomeIcon className='listIcon' icon={faEllipsis} />
+            
+                              <div className="list">
+                                <div >
+                                  <ViewCategorise id={ele.id} />
+                                  
+                                </div>
+                                <div>
+                                  <AddCategorise getAllCategorise={getAllCategorise} link={addCategorise} id={ele.id} nameEle={ele.name} nameSpan={"edit"} classNameToIcon={'subIcon'}/>
+                                </div>
+                                <div>
+                                  <DeleteConfirmation type="Categories" nameEle={ele.name} getAllCategorise={getAllCategorise} id={ele.id}/>
+                                </div>
+                              </div>
+                          
+                          </td>
+                        </tr>
+                    )
+                  })
+                  
+                    
+                  }
+              </tbody>
+            </table>
+          <PaginationPage pages={pageNumber} funData ={getAllCategorise} res={res}/>
+        </>
+      )}
         {loders &&(
 
             <div className='mt-5 d-flex justify-content-center w-100'>
-
                 <ClipLoader  size={50} color='#000'/>
             </div>
         )}
-        <ToastContainer /> 
        {!categories.length &&  (
         !loders && <NoData />
        )}

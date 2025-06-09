@@ -56,19 +56,7 @@ export default function RecipesList() {
    
   },[])
 
-  // useEffect(()=>{
-  //   getAllRecipes(3,1 ,getName,"","")
-   
-  // },[getName])
-
-
-  // useEffect(()=>{
-    
-  //   getAllRecipes(3,1 ,"","",getCatName)
-   
-  // },[getCatName])
   useEffect(()=>{
-    
     getAllRecipes(3,1 ,getName,getTagName,getCatName)
    
   },[getName,getTagName,getCatName])

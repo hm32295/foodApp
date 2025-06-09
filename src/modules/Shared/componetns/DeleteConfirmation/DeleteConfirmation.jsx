@@ -17,10 +17,9 @@ export default function DeleteConfirmation({id,type,getAllCategorise ,nameEle}) 
 
       axiosInstance.delete(CATEGORIIES_URLS.DELETE_CATEGORY(id))
     }
-    // else if(type === "users"){
-    //   axiosInstance.delete(USERS_URLS.DELETE_USER(id))
-
-    // }
+    else if(type === "users"){
+      axiosInstance.delete(USERS_URLS.DELETE_USER(id))
+    }
     toast.success("delete Success!");
     handleClose()
     getAllCategorise(3 ,1 ,"")

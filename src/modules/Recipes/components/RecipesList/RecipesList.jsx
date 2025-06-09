@@ -5,7 +5,7 @@ import { faEllipsis, faEye, faPenToSquare } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';;
 import { useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
-import { axiosInstance, beasImageURL, RECIPES_URLS } from '../../../../services/urls';
+import { axiosInstance, beasImageURL, CATEGORIIES_URLS, RECIPES_URLS, TAG_URLS } from '../../../../services/urls';
 import "./recipesList.css"
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmation from "../../../Shared/componetns/DeleteConfirmation/DeleteConfirmation";
@@ -23,31 +23,55 @@ export default function RecipesList() {
   const [res, setRes] = useState(1)
   const [pageNumber, setPageNumber] = useState([])
   const [loders ,setLoders] = useState(false);
-  const [getName, setgetName] = useState("second")
+  const [getName, setgetName] = useState("");
+  const [getCatName, setgetCatName] = useState("");
+  const [getTagName, setgetTagName] = useState("");
+
+  const[tag, setTag] = useState([]);
+  const[category, setCategory] = useState([]);
+  const [ , setLoder] = useState(false)
+
+
  
-  const getAllRecipes = async(pageSize , pageNumber , name)=>{
+  const getAllRecipes = async(pageSize , pageNumber , name ,tagId,categoryId)=>{
     try{
         let res = await  setLoders(true)
-        axiosInstance(RECIPES_URLS.GET_RECIPES,{params:{pageSize , pageNumber,name}}).then((res)=>{
+        axiosInstance(RECIPES_URLS.GET_RECIPES,{params:{pageSize , pageNumber,name,tagId,categoryId}}).then((res)=>{
           setRecipesList(res.data.data);
           setRes(res.data)
           setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))
           setLoders(false)
-          console.log(res.data)
         })
     }catch(error){
       console.log(error);
       
     }
   }
+
+
   useEffect(()=>{
-    getAllRecipes(3,1 ,"")
+    getAllRecipes(3,1 ,"");
+    getTag(setTag,setLoder)
+    getCategory(setCategory,setLoder);
    
   },[])
-  useEffect(()=>{
-    getAllRecipes(3,1 ,getName)
+
+  // useEffect(()=>{
+  //   getAllRecipes(3,1 ,getName,"","")
    
-  },[getName])
+  // },[getName])
+
+
+  // useEffect(()=>{
+    
+  //   getAllRecipes(3,1 ,"","",getCatName)
+   
+  // },[getCatName])
+  useEffect(()=>{
+    
+    getAllRecipes(3,1 ,getName,getTagName,getCatName)
+   
+  },[getName,getTagName,getCatName])
 
 
 
@@ -70,16 +94,27 @@ export default function RecipesList() {
         </Form.Group>
 
         <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridState">
-          <Form.Select defaultValue="Choose...">
-            <option>Choose...</option>
-            <option>...</option>
+          <Form.Select defaultValue="Choose..." onChange={(e)=>{setgetCatName(e.target.value)}}>
+                {category.length&&(
+                    category.map(ele=>{
+                      return(
+                        <option key={ele.id} value={ele.id} >{ele.name}</option>
+                      )
+                    })
+                  )}
           </Form.Select>
         </Form.Group>
 
         <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridState">
-          <Form.Select defaultValue="Choose...">
-            <option>Choose...</option>
-            <option>...</option>
+          <Form.Select defaultValue="Choose..." onChange={(e)=>{setgetTagName(e.target.value)}}>
+                  {tag.length&&(
+                            tag.map(ele=>{
+                              return(
+
+                                <option key={ele.id} value={ele.id} >{ele.name}</option>
+                              )
+                            })
+                  )}
           </Form.Select>
         </Form.Group>
 
@@ -179,5 +214,31 @@ export default function RecipesList() {
     </div>
   )
 }
+
+
+let getTag = async (setTag,setLoder)=>{
+  setLoder(true)
+  try{
+    let res = await axiosInstance(TAG_URLS.GET_TAG);
+
+    setTag(res.data)
+  }catch(errors){
+    console.log(errors)
+  }
+  setLoder(false)
+}
+
+
+let getCategory = async (setCategory,setLoder)=>{
+  setLoder(true)
+  try{
+    let res = await axiosInstance(CATEGORIIES_URLS.GET_CATEGORY);
+    setCategory(res.data.data)
+  }catch(errors){
+    console.log(errors)
+  }
+  setLoder(false)
+}
+
 
 

@@ -1,11 +1,11 @@
 import img from "../../../../assets/image/header receList.png"
 import Header from '../../../Shared/componetns/Header/Header'
 import NoData from '../../../Shared/componetns/NoData/NoData';
-import { faEllipsis, faEye, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsis, faEye, faHeart, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';;
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
-import { axiosInstance, beasImageURL, CATEGORIIES_URLS, RECIPES_URLS, TAG_URLS } from '../../../../services/urls';
+import { axiosInstance, beasImageURL, CATEGORIIES_URLS, FAV_URLS, RECIPES_URLS, TAG_URLS } from '../../../../services/urls';
 import "./recipesList.css"
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmation from "../../../Shared/componetns/DeleteConfirmation/DeleteConfirmation";
@@ -14,9 +14,13 @@ import PaginationPage from "../../../Shared/componetns/Pagination/PaginationPage
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { AuthContext } from "../../../../context/AuthContext";
+import { toast } from "react-toastify";
 
 
 export default function RecipesList() {
+  let{loginData} = useContext(AuthContext)
+
   
   const navigate = useNavigate()
   const[recipesList ,setRecipesList] = useState([]);
@@ -34,9 +38,10 @@ export default function RecipesList() {
 
  
   const getAllRecipes = async(pageSize , pageNumber , name ,tagId,categoryId)=>{
+    setLoders(true)
     try{
-        let res = await  setLoders(true)
-        axiosInstance(RECIPES_URLS.GET_RECIPES,{params:{pageSize , pageNumber,name,tagId,categoryId}}).then((res)=>{
+        let res = await axiosInstance(RECIPES_URLS.GET_RECIPES,{params:{pageSize , pageNumber,name,tagId,categoryId}})
+        .then((res)=>{
           setRecipesList(res.data.data);
           setRes(res.data)
           setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))
@@ -73,7 +78,9 @@ export default function RecipesList() {
             <p>You can check all details</p>
         </div>
         
-        <button onClick={()=>{navigate("../Recipes-data")}}>add new item</button>
+        {loginData?.userGroup !== "SystemUser" &&(
+            <button onClick={()=>{navigate("../Recipes-data")}}>add new item</button>
+        )}
       </div>
 
       <Row className="mb-3 row w-100">
@@ -144,33 +151,39 @@ export default function RecipesList() {
                           <td>{ele.description}</td>
                           <td>{ele.tag.name}</td>
                           <td>{ele.category[0]?.name}</td>
-                          <td> 
-                            <FontAwesomeIcon className='listIcon' icon={faEllipsis} />
-            
-                              <div className="list">
-                                <div >
-                                  <button>
-                                    <FontAwesomeIcon className='subIcon' icon={faEye} />
-                                    <span>View</span>
-                                  </button>
-                                  
-                                </div>
-                                <div>
-                                  <button onClick={ ()=>{
-                                        navigate("../Recipes-data" , {state : ele})
-                                    }}>
-                                    <FontAwesomeIcon className='subIcon' icon={faPenToSquare} />
-                                    <span>edit</span>
-                                  </button>
-                                </div>
-                                <div>
-                                    <DeleteConfirmation id={ele.id} type='recipes' 
-                                    nameEle={ele.name} getAllCategorise={getAllRecipes}/>
-                                  
-                                </div>
-                              </div>
-                          
-                          </td>
+                          {loginData?.userGroup === "SystemUser" ?
+                            <td>
+                             <FontAwesomeIcon icon={faHeart} className="text-danger" onClick={()=>{addFavs(ele.id,setLoders)}}/>
+                            </td>
+                          :
+                              <td> 
+                                <FontAwesomeIcon className='listIcon' icon={faEllipsis} />
+                
+                                  <div className="list">
+                                    <div >
+                                      <button>
+                                        <FontAwesomeIcon className='subIcon' icon={faEye} />
+                                        <span>View</span>
+                                      </button>
+                                      
+                                    </div>
+                                    <div>
+                                      <button onClick={ ()=>{
+                                            navigate("../Recipes-data" , {state : ele})
+                                        }}>
+                                        <FontAwesomeIcon className='subIcon' icon={faPenToSquare} />
+                                        <span>edit</span>
+                                      </button>
+                                    </div>
+                                    <div>
+                                        <DeleteConfirmation id={ele.id} type='recipes' 
+                                        nameEle={ele.name} getAllCategorise={getAllRecipes}/>
+                                      
+                                    </div>
+                                  </div>
+                              
+                              </td>
+                          }
                         </tr>
                     )
                     })
@@ -229,4 +242,21 @@ let getCategory = async (setCategory,setLoder)=>{
 }
 
 
-
+let addFavs =async (id,setLoder)=>{
+  let recipeId = {
+    recipeId: id
+  }
+  setLoder(true)
+  try{
+    let res = await axiosInstance.post(FAV_URLS.POST_FAV,recipeId).then(res=>{
+     
+      setLoder(false)
+      toast.success(res.statusText)
+    })
+  }
+  catch(errors){
+    setLoder(false)
+      console.log(errors);
+      
+  }
+}

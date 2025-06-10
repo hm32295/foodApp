@@ -3,13 +3,13 @@ import Header from '../../../Shared/componetns/Header/Header'
 import NoData from '../../../Shared/componetns/NoData/NoData';
 import { faEllipsis, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';;
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
 import { axiosInstance, beasImageURL, USERS_URLS } from '../../../../services/urls';
-import { useNavigate } from "react-router-dom";
 import DeleteConfirmation from "../../../Shared/componetns/DeleteConfirmation/DeleteConfirmation";
 import PaginationPage from "../../../Shared/componetns/Pagination/PaginationPage";
 import { Col, Form, Row } from "react-bootstrap";
+import { AuthContext } from "../../../../context/AuthContext";
 export default function Users() {
   
 
@@ -17,17 +17,20 @@ export default function Users() {
   const [getContry, setgetContry] = useState("");
   const [getGroubp, setgetGroubp] = useState("");
   const[users ,setUsers] = useState([]);
-  const[updateData , setUpdateData] = useState(true);
   const [pageNumber, setpageNumber] = useState([])
   const [res, setRes] = useState(1)
   const [loders ,setLoders] = useState(false)
+  const {isAuthLoading,loginData} = useContext(AuthContext)
  
-  useEffect(()=>{setUpdateData(!updateData)},[]);
   const getAllUser = async (pageSize,pageNumber,groups,country,userName)=>{
-    setLoders(true)
+    setLoders(true);
+    
+    
     let res = await axiosInstance(USERS_URLS.GET_ALL_USERS,
       {params : { pageSize,pageNumber,groups,country,userName}}
     ).then((res)=>{
+      
+      
       setUsers(res.data.data);
       setLoders(false);
       setRes(res.data)
@@ -35,14 +38,15 @@ export default function Users() {
     })
   }
   useEffect(()=>{
-    getAllUser(3,1)
-    
-  },[]);
+    if (isAuthLoading|| !loginData) return; 
+    getAllUser(3,1);
+  
+  },[isAuthLoading, loginData]);
   useEffect(()=>{
     getAllUser(5,1 ,getGroubp,getContry,getUserName)
   },[getUserName,getContry, getGroubp])
 
-
+  
 
   return (
     <div className='categoriseList RecipesList'>

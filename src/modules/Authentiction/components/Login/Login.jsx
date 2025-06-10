@@ -29,11 +29,13 @@ export default function Login() {
         setLoder(true)
         let response = axiosInstance.post(USERS_URLS.LOGIN ,data).then(res=>{
           localStorage.setItem('token' , (res.data.token));
-          saveLoginData();
-          toast.success("Success!");
-          setLoder(false);
-          navigate("/dashboard")
-          reset();
+          setTimeout(() => {
+            saveLoginData();
+            toast.success("Success!");
+            setLoder(false);
+            navigate("/dashboard")
+            reset();
+          }, 100);
 
         }).catch(res=>{
           console.log(res.data)

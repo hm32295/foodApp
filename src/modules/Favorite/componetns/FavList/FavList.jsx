@@ -1,45 +1,46 @@
 
-import { Col, Form, Row } from 'react-bootstrap';
 import imgHeader from '../../../../assets/image/header receList.png';
 import Header from '../../../Shared/componetns/Header/Header'
-import { useEffect, useState } from 'react';
-import PaginationPage from '../../../Shared/componetns/Pagination/PaginationPage';
-import Button from 'react-bootstrap/Button';
+import { useContext, useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
-import { axiosInstance, FAV_URLS } from '../../../../services/urls';
+import { axiosInstance, beasImageURL, FAV_URLS } from '../../../../services/urls';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ClipLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../../../context/AuthContext';
 
 export default function FavList() {
-    const [getName, setgetName] = useState("");
-    const [getCatName, setgetCatName] = useState("");
-    const [getTagName, setgetTagName] = useState("");
+    const {loginData,isAuthLoading} = useContext(AuthContext)
+    
     
     const [loders ,setLoders] = useState(false);
     const [allFav ,setAllFav] = useState([])
-    const [res ,setRes] = useState(1);
-    const [pageNumber, setPageNumber] = useState([])
-// const getAllCategorise = async(pageSize , pageNumber,name)=>{
-//     try{
-//       let response = await setLoders(true)
-//       axiosInstance(CATEGORIIES_URLS.GET_CATEGORY, {params:{pageSize , pageNumber,name}} ).then((res)=>{
-//         setCategorise(res.data.data);
-//         setRes(res.data)
-//         setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))
-//         setLoders(false)
+
+    const deleteFav = async(id)=>{
+      
+      setLoders(true)
+      try{
+        const res = await axiosInstance.delete(FAV_URLS.DELETE_FAV(id))
+        .then(res=>{
+          getAllFav()
+          toast.success('removed from fav')
+          
+        })
+      }catch(errors){
+        console.log(errors);
         
-//       })
-//     }catch(error ){
-//       console.log(error)
-//     }
-//   }
+      }
+      setLoders(false)
+      
+    }
     
-     const getAllFav = async(pageNumber,pageSize)=>{
+     const getAllFav = async()=>{
       setLoders(true)
         try{
-          let response = await axiosInstance(FAV_URLS.GET_FAV,{params:{pageNumber,pageSize}}).then((res)=>{
+          let response = await axiosInstance(FAV_URLS.GET_FAV).then((res)=>{
             
             setAllFav(res.data.data);
-            setRes(res.data)
-            setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))
             setLoders(false)
             
             
@@ -50,50 +51,44 @@ export default function FavList() {
         }
       }
       useEffect(()=>{
+        if (isAuthLoading) return; 
+        if (!loginData) return;
         getAllFav()
-      },[])
+      },[loginData,isAuthLoading])
   return (
     <div className='FavList'>
       <Header description={"You can now add your items that any user can order it from the Application and you can edit"} img={imgHeader} title={"Favorite Itmes!"} />
-      <Row className="mb-3 row w-100">
-        <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridCity">
-          <Form.Control placeholder={'search by name'} onChange={(e)=>{setgetName(e.target.value)}}/>
-        </Form.Group>
+    
+        {!loders&&(
 
-        <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridState">
-          <Form.Select defaultValue="Choose..." onChange={(e)=>{setgetCatName(e.target.value)}}>
-                <option value=""></option>
-          </Form.Select>
-        </Form.Group>
+          <div className='d-flex justify-content-center gap-2 flex-wrap p-3'>
 
-        <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridState">
-          <Form.Select defaultValue="Choose..." onChange={(e)=>{setgetTagName(e.target.value)}}>
-                 <option value=""></option>
-          </Form.Select>
-        </Form.Group>
-
-      </Row>
-        {allFav.length&&(
-          allFav.map(ele=>{
-            return(
-              <Card style={{ width: '18rem' }} key={ele.id}>
-                  <Card.Img variant="top" src="holder.js/100px180" />
-                  <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Text>
-                      Some quick example text to build on the card title and make up the
-                      bulk of the card's content.
-                    </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
-                  </Card.Body>
-                </Card>
-            )
-          })
+        
+                  {allFav.length&&(
+                    allFav.map(ele=>{
+                      return(
+                        <Card style={{ width: '18rem' }} key={ele.id} className='w-25 position-relative'>
+                            <Card.Img variant="top" src={`${beasImageURL}${ele.recipe.imagePath}`} />
+                            <FontAwesomeIcon onClick={()=>{deleteFav(ele.id)}} 
+                              icon={faHeart} className='position-absolute m-3 end-0 top-0 text-info' 
+                              style={{ cursor: "pointer" }} />
+                            <Card.Body> 
+                              <Card.Title>{ele.recipe.name}</Card.Title>
+                              <Card.Text>{ele.recipe.description}</Card.Text>
+                            </Card.Body>
+                          </Card>
+                      )
+                    })
+                  )}
+                  
+          </div>
         )}
-       
-
-
-      <PaginationPage funData={getAllFav} pages={pageNumber} res={res}/>
+        {loders &&(
+        
+                  <div className='mt-5 d-flex justify-content-center w-100'>
+                      <ClipLoader  size={50} color='#000'/>
+                  </div>
+                )}
     
     </div>
   )

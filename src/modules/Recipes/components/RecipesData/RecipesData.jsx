@@ -10,6 +10,7 @@ import { toast } from "react-toastify"
 import { ClipLoader } from "react-spinners"
 
 export default function RecipesData() {
+
   const [loder , setLoder] = useState(false)
   const[tag, setTag] = useState([]);
   const[category, setCategory] = useState([]);
@@ -29,9 +30,7 @@ export default function RecipesData() {
         tagId: recipeItem.tag?.id,    
         categoriesIds: recipeItem.category?.[0]?.id,
       });
-    }
-    
-    
+    } 
   }, [recipeItem,tag, category, reset]);
 
   let saveData = async (data)=>{
@@ -186,9 +185,6 @@ let handelDataToForm = (data) =>{
   recipesForm.append('recipeImage', data.recipeImage[0])
  
   return recipesForm
-
-
-
 
 }
 

@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AddCategorise from '../AddCategorise/AddCategorise';
 import { useEffect, useState } from 'react';
 import ViewCategorise from '../ViewCategorise/ViewCategorise';
-import { ToastContainer } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
 import { axiosInstance, CATEGORIIES_URLS } from '../../../../services/urls';
 import PaginationPage from '../../../Shared/componetns/Pagination/PaginationPage';
@@ -23,9 +22,10 @@ export default function CategoriseList() {
 
   const [res ,setRes] = useState(1)
   const getAllCategorise = async(pageSize , pageNumber,name)=>{
+    setLoders(true)
+      
     try{
-      let response = await setLoders(true)
-      axiosInstance(CATEGORIIES_URLS.GET_CATEGORY, {params:{pageSize , pageNumber,name}} ).then((res)=>{
+      let response = await axiosInstance(CATEGORIIES_URLS.GET_CATEGORY, {params:{pageSize , pageNumber,name}} ).then((res)=>{
         setCategorise(res.data.data);
         setRes(res.data)
         setPageNumber(Array(res.data.totalNumberOfPages).fill().map((_,i) => i+1))

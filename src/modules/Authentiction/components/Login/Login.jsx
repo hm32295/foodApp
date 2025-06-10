@@ -7,11 +7,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
 import { useContext, useState } from "react";
-import { toast ,ToastContainer} from "react-toastify";
+import { toast} from "react-toastify";
 import { axiosInstance, USERS_URLS } from "../../../../services/urls";
 import { EMAIL_VALIDION } from "../../../../services/validation";
 import { AuthContext } from "../../../../context/AuthContext";
-// import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Login() {

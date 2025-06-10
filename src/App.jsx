@@ -20,6 +20,7 @@ import Users from './modules/Users/components/UsersList/Users';
 import ProtectedRoute from './modules/Shared/componetns/ProtectedRoute/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FavList from './modules/Favorite/componetns/FavList/FavList';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
         { path : "Recipes-list", element : <RecipesList /> },
         { path : "Categorise-data", element : <CategoriseData /> },
         { path : "Categorise-list", element : <CategoriseList /> },
+        { path : "Favorite", element : <FavList /> },
         { path : "users", element : <Users /> },
       ]
     }

@@ -33,3 +33,18 @@ export const RECIPES_URLS ={
 export const TAG_URLS = {
     GET_TAG : '/tag/',
 }
+// ================ fav =============
+// /api/v1/userRecipe/
+export const FAV_URLS ={
+    GET_FAV : "/userRecipe/",
+    POST_FAV: `/userRecipe/`,
+    DELETE_FAV:(id)=> `/userRecipe/${id}`,
+
+}
+// ================ fav =============
+
+export const REGESTORE_URLS ={
+    SET_REGESTORE : "/Users/Register/",
+    VERIFY_REGESTORE : '/Users/verify/'
+
+}

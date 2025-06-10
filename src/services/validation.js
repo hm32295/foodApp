@@ -1,5 +1,5 @@
 export let EMAIL_VALIDION ={
-    reqired: "email is reqired",
+  required: "email is reqired",
     pattern: {
         value :/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim ,
         message :"email is not valied"

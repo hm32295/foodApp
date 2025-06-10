@@ -11,6 +11,7 @@ import iconRecipes from "../../../../assets/icons/iconRec.svg"
 import iconCategories from "../../../../assets/icons/iconCategorise.svg"
 import iconlog from "../../../../assets/icons/iconLogout.svg"
 import iconChange from "../../../../assets/icons/iconChangePassword.svg"
+import iconFav from "../../../../assets/icons/favIcon.svg"
 import { useState } from 'react';
 
 
@@ -45,6 +46,7 @@ export default function SideBar() {
               <MenuItem icon={<img src={iconUser} alt="iconUser" />} component={<Link to="/dashboard/users" />}> Users </MenuItem>
               <MenuItem icon={<img src={iconRecipes} alt="iconRecipes" />} component={<Link to="/dashboard/Recipes-list" />}> Recipes </MenuItem>
               <MenuItem icon={<img src={iconCategories} alt="iconCategories" />} component={<Link to="/dashboard/Categorise-list" />}> Categories </MenuItem>
+              <MenuItem icon={<img src={iconFav} alt="iconCategories" />} component={<Link to="/dashboard/Favorite" />}> Favorite </MenuItem>
               <MenuItem icon={<img src={iconChange} alt="iconChange" />} component={<Link to="/dashboard/" />}> Change Password </MenuItem>
               <MenuItem className='sidebar-logout' onClick={()=>{localStorage.removeItem("token")}} icon={<img src={iconlog} alt="iconlog" />} component={<Link to="/login" />}> log out </MenuItem>
              

@@ -76,7 +76,7 @@ export default function RecipesList() {
         <button onClick={()=>{navigate("../Recipes-data")}}>add new item</button>
       </div>
 
-    <Row className="mb-3 row w-100">
+      <Row className="mb-3 row w-100">
         <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridCity">
           <Form.Control placeholder={'search by name'} onChange={(e)=>{setgetName(e.target.value)}}/>
         </Form.Group>

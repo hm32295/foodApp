@@ -66,3 +66,9 @@ export const REGESTORE_URLS ={
     VERIFY_REGESTORE : '/Users/verify/'
 
 }
+// ================ change password =============
+// /api/v1/Users/ChangePassword
+export const CHANGEPASSWORD_URLS ={
+    CHANGEPASSWORD : "/Users/ChangePassword/"
+
+}

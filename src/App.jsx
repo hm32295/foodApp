@@ -21,6 +21,7 @@ import ProtectedRoute from './modules/Shared/componetns/ProtectedRoute/Protected
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FavList from './modules/Favorite/componetns/FavList/FavList';
+import ChangePass from './modules/Authentiction/components/ChangePass/ChangePass';
 
 
 function App() {
@@ -53,6 +54,10 @@ function App() {
         {
           path :"verify-account",
           element : <VerifyAccount />
+        },
+        {
+          path :"change-password",
+          element : <ChangePass />
         },
       ],
       errorElement : <NotFound />

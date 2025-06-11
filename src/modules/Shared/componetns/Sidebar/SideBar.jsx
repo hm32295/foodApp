@@ -58,7 +58,7 @@ export default function SideBar() {
                   </>
               )}
               <MenuItem icon={<img src={iconRecipes} alt="iconRecipes" />} component={<Link to="/dashboard/Recipes-list" />}> Recipes </MenuItem>
-              <MenuItem icon={<img src={iconChange} alt="iconChange" />} component={<Link to="/forget-pass/" />}> Change Password </MenuItem>
+              <MenuItem icon={<img src={iconChange} alt="iconChange" />} component={<Link to="/change-password/" />}> Change Password </MenuItem>
               <MenuItem className='sidebar-logout' 
                  onClick={()=>{ logout() }} icon={<img src={iconlog} alt="iconlog" />} component={<Link to="/login" />}> log out </MenuItem>
              

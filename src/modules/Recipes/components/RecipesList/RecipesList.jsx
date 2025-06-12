@@ -114,7 +114,7 @@ export default function RecipesList() {
         </Form.Group>
 
       </Row>
-      <div className="sub-categoriseList-table mb-5 w-100">
+      <div className="sub-categoriseList-table mb-5 w-100 overflow-auto pb-5">
 
       { 
         

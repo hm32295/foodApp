@@ -36,3 +36,18 @@
 .container-fluid.header .img-header img{
     height: 200px;
 }
+@media (max-width : 580px) {
+    
+    .container-fluid .col-md-8{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+@media (max-width : 768px) {
+    
+    .container-fluid.header .img-header{
+        justify-content: center !important;
+    }
+}

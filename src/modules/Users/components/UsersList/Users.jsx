@@ -48,7 +48,7 @@ export default function Users() {
   
   },[isAuthLoading, loginData]);
   useEffect(()=>{
-    getAllUser(5,1 ,getGroubp,getContry,getUserName)
+    getAllUser(3,1 ,getGroubp,getContry,getUserName)
   },[getUserName,getContry, getGroubp])
 
   
@@ -82,7 +82,7 @@ export default function Users() {
       </Row> 
 
 
-      <div className="sub-categoriseList-table mb-5 w-100">
+      <div className="sub-categoriseList-table mb-5 w-100 overflow-auto pb-5">
         <table className='w-100 rounded-2'>
           <thead >
               <tr>

@@ -3,6 +3,12 @@
     margin: 1rem 0;
     border-radius: 15px;
 }
+@media (max-width : 580px) {
+    .categoriseList .sub-categoriseList-title{
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+}
 .categoriseList .sub-categoriseList-title > div{
     text-transform: capitalize;
 }

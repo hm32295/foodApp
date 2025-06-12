@@ -15,7 +15,7 @@ export default function MasterLayout() {
           <SideBar  />
         </div>
 
-        <div className="w-100">
+        <div  style={{width:"calc(100% - 85px)"}}>
           <Navbar loginData={loginData}/>
           <Outlet />
         </div>

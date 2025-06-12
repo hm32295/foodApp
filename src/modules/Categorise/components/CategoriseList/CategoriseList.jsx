@@ -56,7 +56,7 @@ export default function CategoriseList() {
         <AddCategorise getAllCategorise={getAllCategorise} link={addCategorise} nameSpan={"Add New "} />
       </div>
 
-      <div className="sub-categoriseList-table mb-5 w-100 overflow-hidden pb-5">
+      <div className="sub-categoriseList-table mb-5 w-100 overflow-auto pb-5">
         <input type="text" placeholder='Search By Name ,,,' className='form-control mb-3' onChange={(e)=>{setgetName(e.target.value)}}/>
         { !loders&&(
           <>

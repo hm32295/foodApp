@@ -1,9 +1,10 @@
 
-import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import Login from './modules/Authentiction/components/login/Login'
+// import Login from './modules/Authentiction/components/Login/Login';
+import Login from './modules/Authentiction/components/login/Login';
 import AuthLayout from './modules/Shared/componetns/AuthLayout/AuthLayout';
 import Regestor from './modules/Authentiction/components/Regestor/Regestor';
 import ForgetPass from './modules/Authentiction/components/ForgetPass/ForgetPass';
@@ -22,6 +23,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FavList from './modules/Favorite/componetns/FavList/FavList';
 import ChangePass from './modules/Authentiction/components/ChangePass/ChangePass';
+
 
 
 function App() {

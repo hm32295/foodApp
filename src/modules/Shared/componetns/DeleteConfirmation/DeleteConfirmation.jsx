@@ -7,22 +7,26 @@ import {  faTrashCan, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { toast } from 'react-toastify';
-import { axiosInstance, CATEGORIIES_URLS, RECIPES_URLS, USERS_URLS } from '../../../../services/urls';
-export default function DeleteConfirmation({id,type,getAllCategorise ,nameEle}) {
+import { axiosInstance, CATEGORIIES_URLS, FAV_URLS, RECIPES_URLS, USERS_URLS } from '../../../../services/urls';
+
+export default function DeleteConfirmation({id,type,getAllCategorise ,nameEle ,icon}) {
   
   let deleteElement =()=>{
     if(type === "recipes"){
       axiosInstance.delete(RECIPES_URLS.DELETE_RECIPES(id))
-    }else if(type === "Categories"){
-
+    }
+    else if(type === "Categories"){
       axiosInstance.delete(CATEGORIIES_URLS.DELETE_CATEGORY(id))
     }
     else if(type === "users"){
       axiosInstance.delete(USERS_URLS.DELETE_USER(id))
     }
+    else if( type === "fave"){
+         axiosInstance.delete(FAV_URLS.DELETE_FAV(id))
+    }
     toast.success("delete Success!");
     handleClose()
-    getAllCategorise(3 ,1 ,"")
+    getAllCategorise()
   }
   const [show, setShow] = useState(false);
 
@@ -31,9 +35,19 @@ export default function DeleteConfirmation({id,type,getAllCategorise ,nameEle}) 
 
   return (
     < >
-        <Button variant="primary" onClick={handleShow}>
-          <FontAwesomeIcon className='subIcon' icon={faTrashCan} />
-          <span>delete</span>
+        <Button variant="primary" onClick={handleShow}
+            className={icon&&('position-absolute m-3 end-0 top-0 text-info bg-white border-0' )}
+           style={{ cursor: "pointer" }}
+        >
+          {icon?(
+
+          <FontAwesomeIcon className='subIcon' icon={icon} />
+        ):(
+          <>
+            <FontAwesomeIcon className='subIcon' icon={faTrashCan} />
+              <span>delete</span>
+          </>
+        )}
         </Button>
 
         <Modal

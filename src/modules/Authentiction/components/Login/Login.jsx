@@ -38,7 +38,7 @@ export default function Login() {
           }, 100);
 
         }).catch(res=>{
-          console.log(res.data)
+          console.log(res)
           toast.error("email or password no correct");
           setLoder(false)
         })

@@ -251,6 +251,7 @@ let addFavs =async (id,setLoder)=>{
     let res = await axiosInstance.post(FAV_URLS.POST_FAV,recipeId).then(res=>{
      
       setLoder(false)
+      
       toast.success(res.statusText)
     })
   }

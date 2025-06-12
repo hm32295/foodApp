@@ -39,6 +39,8 @@ export default function Regestor() {
   }
   const onSubmit =  (data)=>{
     let recipcesData =  handelDataToForm(data);
+    
+    
     setLoder(true)
   
     let response = axiosInstance.post(REGESTORE_URLS.SET_REGESTORE,recipcesData,{headers: { "Content-Type": "multipart/form-data" }})
@@ -47,10 +49,10 @@ export default function Regestor() {
           setLoder(false);
           navigation("/verify-account")
           reset()
-        }).catch(res=>{
-          console.log(res.response.data);
+        }).catch(error=>{
+          console.log(error.response?.data);
           
-          toast.error(res.response.data.message);
+          toast.error(error.response?.data?.message);
           setLoder(false)
         })
         

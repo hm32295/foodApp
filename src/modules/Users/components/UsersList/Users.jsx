@@ -178,7 +178,7 @@ function Example({user}) {
         <Modal.Header closeButton>
           <Modal.Title>user details</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="overflow-auto">
           <TableDataUsers user={user}/>
         </Modal.Body>
         <Modal.Footer>
@@ -194,22 +194,24 @@ function Example({user}) {
 function TableDataUsers({user}) {
   
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover >
       <thead>
         <tr>
-          <th>userName</th>
-          <th>phone Number</th>
-          <th>group</th>
-          <th>country</th>
+          <th className="text-center" >userName</th>
+          <th className="text-center" >phone Number</th>
+          <th className="text-center" >group</th>
+          <th className="text-center" >country</th>
+          <th className="text-center" >email</th>
         </tr>
       </thead>
       <tbody>
         {user&&(
             <tr >
-                <td>{user.userName}</td>
-                <td>{user.phoneNumber}</td>
-                <td>{user.group.name}</td>
-                <td>{user.country}</td>
+                <td className="text-center">{user.userName}</td>
+                <td className="text-center">{user.phoneNumber}</td>
+                <td className="text-center">{user.group.name}</td>
+                <td className="text-center">{user.country}</td>
+                <td className="text-center">{user.email}</td>
             </tr>
         )}
       </tbody>

@@ -31,6 +31,9 @@
     margin-top: 1.5rem;
   
 }
+.sidebar-con.importantCollaose{
+    transition: all .3s ;
+}
 
 @media (max-width : 992px) {
     .importantCollaose{

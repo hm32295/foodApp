@@ -27,11 +27,8 @@ export default function SideBar() {
   }
 
   return (
-    <div className='sidebar-con'>
-       
-
-
-          <Sidebar collapsed={collapse} > 
+    <div className={`sidebar-con importantCollaose`} style={{width:collapse? "80px":"250px" ,height:"100vh" }}>
+          <Sidebar collapsed={collapse}   className='position-fixed top-0 start-0 z-1' > 
             <Menu >    
              {!collapse&&(
               <MenuItem className='sidebar-logo'> 

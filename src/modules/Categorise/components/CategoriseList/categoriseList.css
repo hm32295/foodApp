@@ -56,6 +56,8 @@
 }
 .categoriseList .sub-categoriseList-table table {
     font-family: "Poppins", sans-serif;
+    width: 100%;
+    overflow: auto;
     font-weight: 500;
     font-size: 16px;
     line-height: 100%;

@@ -10,6 +10,11 @@ import DeleteConfirmation from "../../../Shared/componetns/DeleteConfirmation/De
 import PaginationPage from "../../../Shared/componetns/Pagination/PaginationPage";
 import { Col, Form, Row } from "react-bootstrap";
 import { AuthContext } from "../../../../context/AuthContext";
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
+
 export default function Users() {
   
 
@@ -113,10 +118,8 @@ export default function Users() {
       
                         <div className="list">
                           <div >
-                            <button>
-                              <FontAwesomeIcon className='subIcon' icon={faEye} />
-                              <span>View</span>
-                            </button>
+                            <Example user={ele}/>
+                            
                             
                           </div>
                           
@@ -157,3 +160,59 @@ export default function Users() {
 
 
 
+
+function Example({user}) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+    
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        <FontAwesomeIcon className='subIcon' icon={faEye} />
+        <span>View</span>
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>user details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <TableDataUsers user={user}/>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
+function TableDataUsers({user}) {
+  
+  return (
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>userName</th>
+          <th>phone Number</th>
+          <th>group</th>
+          <th>country</th>
+        </tr>
+      </thead>
+      <tbody>
+        {user&&(
+            <tr >
+                <td>{user.userName}</td>
+                <td>{user.phoneNumber}</td>
+                <td>{user.group.name}</td>
+                <td>{user.country}</td>
+            </tr>
+        )}
+      </tbody>
+    </Table>
+  );
+}

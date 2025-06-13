@@ -1,5 +1,5 @@
-import "../login/login.css"
-import { faEnvelope, faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
+
+import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../../../assets/image/logo1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,8 +7,7 @@ import { useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
 import { useContext, useState } from "react";
 import { toast} from "react-toastify";
-import { axiosInstance, CHANGEPASSWORD_URLS, USERS_URLS } from "../../../../services/urls";
-import { EMAIL_VALIDION } from "../../../../services/validation";
+import { axiosInstance, CHANGEPASSWORD_URLS } from "../../../../services/urls";
 import { AuthContext } from "../../../../context/AuthContext";
 
 

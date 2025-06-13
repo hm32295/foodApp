@@ -63,13 +63,13 @@ export default function FavList() {
     
         {!loders&&(
 
-          <div className='d-flex justify-content-center gap-2 flex-wrap p-3'>
+          <div className='d-flex justify-content-center gap-3 flex-wrap p-3'>
 
         
                   {allFav.length?(
                     allFav.map(ele=>{
                       return(
-                        <Card style={{ width: '18rem' }} key={ele.id} className='w-25 position-relative'>
+                        <Card style={{ width: '18rem' }} key={ele.id} className=' position-relative'>
                             <Card.Img variant="top" src={`${beasImageURL}${ele.recipe.imagePath}`} />
 
                               <DeleteConfirmation 

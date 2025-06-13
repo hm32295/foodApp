@@ -12,3 +12,19 @@
     width: 50px;
     border-radius: .2rem;
 }
+@media (max-width : 992px) {
+    
+    .categoriseList .search{
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .categoriseList .search > div{
+        width: 80%
+    }
+}
+@media (max-width : 450px) {
+    .categoriseList .search > div{
+        width: 100%
+    }
+
+}

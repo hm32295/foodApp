@@ -65,14 +65,14 @@ export default function Users() {
         
       </div>
 
-      <Row className="mb-3 row w-100">
-        <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridCity">
+      <Row className="mb-3 row w-100 search">
+        <Form.Group className='col-md-4 mx-auto my-2' as={Col} controlId="formGridCity">
           <Form.Control placeholder={'search by username'} onChange={(e)=>{setgetUserName(e.target.value)}}/>
         </Form.Group>
-        <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridCity">
+        <Form.Group className='col-md-4 mx-auto my-2' as={Col} controlId="formGridCity">
           <Form.Control placeholder={'search by country'} onChange={(e)=>{setgetContry(e.target.value)}}/>
         </Form.Group>
-        <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridState">
+        <Form.Group className='col-md-4 mx-auto my-2' as={Col} controlId="formGridState">
           <Form.Select defaultValue="Choose..." onChange={(e)=>{setgetGroubp(e.target.value)}}>
                  <option value="1">SuperAdmin</option>
                  <option value="2">SystemUser</option>

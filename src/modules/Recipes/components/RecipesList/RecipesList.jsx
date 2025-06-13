@@ -83,12 +83,12 @@ export default function RecipesList() {
         )}
       </div>
 
-      <Row className="mb-3 row w-100">
-        <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridCity">
+      <Row className="mb-3 row w-100 search">
+        <Form.Group className='dev col-md-4 mx-auto my-2' as={Col} controlId="formGridCity">
           <Form.Control placeholder={'search by name'} onChange={(e)=>{setgetName(e.target.value)}}/>
         </Form.Group>
 
-        <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridState">
+        <Form.Group className='col-md-4 mx-auto my-2' as={Col} controlId="formGridState">
           <Form.Select defaultValue="Choose..." onChange={(e)=>{setgetCatName(e.target.value)}}>
                 {category.length&&(
                     category.map(ele=>{
@@ -100,7 +100,7 @@ export default function RecipesList() {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className='col-md-4 col-sm-8 mx-auto my-2' as={Col} controlId="formGridState">
+        <Form.Group className='col-md-4 mx-auto my-2' as={Col} controlId="formGridState">
           <Form.Select defaultValue="Choose..." onChange={(e)=>{setgetTagName(e.target.value)}}>
                   {tag.length&&(
                             tag.map(ele=>{

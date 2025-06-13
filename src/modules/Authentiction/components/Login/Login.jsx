@@ -1,5 +1,5 @@
 
-import "./Login.css"
+import "./login.css"
 import { faEnvelope, faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../../../assets/image/logo1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
